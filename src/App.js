@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navbar } from './components/common/Navbar';
+import { NotificationToast } from './components/common/NotificationToast';
+import { CartDrawer } from './components/cart/CartDrawer';
+import { MenuPage } from './pages/MenuPage';
+import { SignupPage } from './pages/SignupPage';
+import { CheckoutPage } from './pages/CheckoutPage';
 import './App.css';
 
-function App() {
+export default function App() {
+  const activeTab = useSelector((state) => state.ui.activeTab);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-wrapper">
+      <Navbar />
+      <NotificationToast />
+      <CartDrawer />
+
+      <main className="main-content">
+        {activeTab === 'menu' && <MenuPage />}
+        {activeTab === 'signup' && <SignupPage />}
+        {activeTab === 'checkout' && <CheckoutPage />}
+      </main>
+
+      <footer className="footer">
+        <p>© 2026 SliceMaster Inc. Built with React & Redux Toolkit.</p>
+      </footer>
     </div>
   );
 }
-
-export default App;
